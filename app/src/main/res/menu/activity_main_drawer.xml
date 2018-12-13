@@ -7,9 +7,9 @@
     <group android:id="@+id/menu_top"
         android:checkableBehavior="none">
         <item
-            android:id="@+id/schoolwebsitemenu"
+            android:id="@+id/weekTimeTable"
             android:icon="@drawable/baseline_open_in_browser_black_18"
-            android:title="@string/school_website" />
+            android:title="Week TimeTable" />
     </group>
 
     <group android:id="@+id/menu_mid"

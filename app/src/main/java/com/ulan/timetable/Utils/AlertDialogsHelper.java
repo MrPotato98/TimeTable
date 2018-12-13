@@ -3,6 +3,7 @@ package com.ulan.timetable.Utils;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.design.widget.FloatingActionButton;
@@ -12,12 +13,14 @@ import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.ulan.timetable.Activities.MainActivity;
 import com.ulan.timetable.Adapters.FragmentsTabAdapter;
 import com.ulan.timetable.Adapters.HomeworksAdapter;
 import com.ulan.timetable.Adapters.NotesAdapter;
@@ -41,6 +44,7 @@ import petrov.kristiyan.colorpicker.ColorPicker;
 /**
  * Created by Ulan on 22.10.2018.
  */
+
 public class AlertDialogsHelper {
 
     public static void getEditSubjectDialog(final Activity activity, final View alertLayout, final ArrayList<Week> adapter, final ListView listView, int position) {
@@ -51,14 +55,29 @@ public class AlertDialogsHelper {
         editTextHashs.put(R.string.teacher, teacher);
         final EditText room = alertLayout.findViewById(R.id.room_dialog);
         editTextHashs.put(R.string.room, room);
-        final TextView from_time = alertLayout.findViewById(R.id.from_time);
-        final TextView to_time = alertLayout.findViewById(R.id.to_time);
+
+
+        //-------------------
+        /*final CheckBox cbT2 =(CheckBox) findViewById(R.id.cb2);
+        final CheckBox cbT3 =(CheckBox) findViewById(R.id.cb3);
+        final CheckBox cbT4 =(CheckBox) findViewById(R.id.cb4);
+        final CheckBox cbT5 =(CheckBox) findViewById(R.id.cb5);
+        final CheckBox cbT6 =(CheckBox) findViewById(R.id.cb6);
+        final CheckBox cbT7 =(CheckBox) findViewById(R.id.cb7);
+        final CheckBox cbCN =(CheckBox) findViewById(R.id.cb8);*/
+
+        final TextView from_time= alertLayout.findViewById(R.id.txtFrom);;
+
+        final TextView to_time=alertLayout.findViewById(R.id.txtTo);;
+        //---------------
         final Button select_color = alertLayout.findViewById(R.id.select_color);
         final Week week = adapter.get(position);
 
         subject.setText(week.getSubject());
         teacher.setText(week.getTeacher());
         room.setText(week.getRoom());
+
+
         from_time.setText(week.getFromTime());
         to_time.setText(week.getToTime());
         select_color.setBackgroundColor(week.getColor() != 0 ? week.getColor() : Color.WHITE);
@@ -178,11 +197,75 @@ public class AlertDialogsHelper {
         editTextHashs.put(R.string.teacher, teacher);
         final EditText room = alertLayout.findViewById(R.id.room_dialog);
         editTextHashs.put(R.string.room, room);
-        final TextView from_time = alertLayout.findViewById(R.id.from_time);
-        final TextView to_time = alertLayout.findViewById(R.id.to_time);
+        final TextView from_time = alertLayout.findViewById(R.id.txtFrom);
+        final TextView to_time = alertLayout.findViewById(R.id.txtTo);
         final Button select_color = alertLayout.findViewById(R.id.select_color);
         final Week week = new Week();
 
+        final CheckBox cb1= alertLayout.findViewById(R.id.cbCa1);
+        final CheckBox cb2= alertLayout.findViewById(R.id.cbCa2);
+        final CheckBox cb3= alertLayout.findViewById(R.id.cbCa3);
+        final CheckBox cb4= alertLayout.findViewById(R.id.cbCa4);
+//********************************************************************
+
+        cb1.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                if(((CheckBox)v).isChecked()){
+                    from_time.setText("06:45");
+                    week.setFromTime("06:45");
+                    to_time.setText("09:00");
+                    week.setToTime("09:00");
+                    cb2.setChecked(false);
+                    cb3.setChecked(false);
+                    cb4.setChecked(false);
+                }
+            }
+        });
+
+        cb2.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                if(((CheckBox)v).isChecked()){
+                    from_time.setText("09:00");
+                    week.setFromTime("09:00");
+                    to_time.setText("11:45");
+                    week.setToTime("11:45");
+                    cb1.setChecked(false);
+                    cb3.setChecked(false);
+                    cb4.setChecked(false);
+                }
+            }
+        });
+        cb3.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                if(((CheckBox)v).isChecked()){
+                    from_time.setText("12:30");
+                    week.setFromTime("12:30");
+                    to_time.setText("15:00");
+                    week.setToTime("15:00");
+                    cb1.setChecked(false);
+                    cb2.setChecked(false);
+                    cb4.setChecked(false);
+                }
+            }
+        });
+        cb4.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                if(((CheckBox)v).isChecked()){
+                    from_time.setText("15:00");
+                    week.setFromTime("15:00");
+                    to_time.setText("17:45");
+                    week.setToTime("17:45");
+                    cb1.setChecked(false);
+                    cb3.setChecked(false);
+                    cb2.setChecked(false);
+                }
+            }
+        });
+    //***************************************************************
         from_time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -222,6 +305,8 @@ public class AlertDialogsHelper {
                 timePickerDialog.show();
             }
         });
+//******************************************************************************
+
 
         select_color.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -281,15 +366,111 @@ public class AlertDialogsHelper {
                     Matcher fragment = Pattern.compile("(.*Fragment)").matcher(adapter.getItem(viewPager.getCurrentItem()).toString());
                     ColorDrawable buttonColor = (ColorDrawable) select_color.getBackground();
                     week.setSubject(subject.getText().toString());
-                    week.setFragment(fragment.find() ? fragment.group() : null);
-                    week.setTeacher(teacher.getText().toString());
+                    //-------------------------------------------------------
+                    final CheckBox cbT2= alertLayout.findViewById(R.id.cb2);
+                    final CheckBox cbT3= alertLayout.findViewById(R.id.cb3);
+                    final CheckBox cbT4= alertLayout.findViewById(R.id.cb4);
+                    final CheckBox cbT5= alertLayout.findViewById(R.id.cb5);
+                    final CheckBox cbT6= alertLayout.findViewById(R.id.cb6);
+                    final CheckBox cbT7= alertLayout.findViewById(R.id.cb7);
+                    final CheckBox cbCN= alertLayout.findViewById(R.id.cb8);
+
+                    //--------------------------------------------------
+                    /*int count=0;
+                    if(cbT2.isChecked())count++;
+                    if(cbT3.isChecked())count++;
+                    if(cbT4.isChecked())count++;
+                    if(cbT5.isChecked())count++;
+                    if(cbT6.isChecked())count++;
+                    if(cbT7.isChecked())count++;
+                    if(cbCN.isChecked())count++;*/
+
+                    if(cbT2.isChecked()){
+                        week.setFragment("Monday");
+                        cbT2.setChecked(false);
+                        week.setTeacher(teacher.getText().toString());
+                        week.setRoom(room.getText().toString());
+                        week.setColor(buttonColor.getColor());
+                        dbHelper.KiemTra(week);
+                        dbHelper.insertWeek(week);
+                    }
+                    if(cbT3.isChecked()){
+                        week.setFragment("Tuesday");
+                        cbT3.setChecked(false);
+                        week.setTeacher(teacher.getText().toString());
+                        week.setRoom(room.getText().toString());
+                        week.setColor(buttonColor.getColor());
+                        dbHelper.KiemTra(week);
+                        dbHelper.insertWeek(week);
+                    }
+                    if(cbT4.isChecked()){
+                        week.setFragment("Wednesday");
+                        cbT4.setChecked(false);
+                        week.setTeacher(teacher.getText().toString());
+                        week.setRoom(room.getText().toString());
+                        week.setColor(buttonColor.getColor());
+                        dbHelper.KiemTra(week);
+                        dbHelper.insertWeek(week);
+                    }
+                    if(cbT5.isChecked()){
+                        week.setFragment("Thursday");
+                        cbT5.setChecked(false);
+                        week.setTeacher(teacher.getText().toString());
+                        week.setRoom(room.getText().toString());
+                        week.setColor(buttonColor.getColor());
+                        dbHelper.KiemTra(week);
+                        dbHelper.insertWeek(week);
+                    }
+                    if(cbT6.isChecked()){
+                        week.setFragment("Friday");
+                        cbT6.setChecked(false);
+                        week.setTeacher(teacher.getText().toString());
+                        week.setRoom(room.getText().toString());
+                        week.setColor(buttonColor.getColor());
+                        dbHelper.KiemTra(week);
+                        dbHelper.insertWeek(week);
+                    }
+                    if(cbT7.isChecked()){
+                        week.setFragment("Saturday");
+                        cbT7.setChecked(false);
+                        week.setTeacher(teacher.getText().toString());
+                        week.setRoom(room.getText().toString());
+                        week.setColor(buttonColor.getColor());
+
+/*
+                        final DbHelper db = new DbHelper(MainActivity.class);
+                        db.deleteWeekById(getItem(position));
+                        db.updateWeek(getItem(position));
+                        weeklist.remove(position);
+                        notifyDataSetChanged();
+                        return true;
+*/                      dbHelper.KiemTra(week);
+                        dbHelper.insertWeek(week);
+                    }
+                    if(cbCN.isChecked()){
+                        week.setFragment("Sunday");
+                        cbCN.setChecked(false);
+                        week.setTeacher(teacher.getText().toString());
+                        week.setRoom(room.getText().toString());
+                        week.setColor(buttonColor.getColor());
+                        dbHelper.insertWeek(week);
+                    }
+
+
+                    //week.setFragment(fragment.find() ? fragment.group() : null);
+
+                   /* week.setTeacher(teacher.getText().toString());
                     week.setRoom(room.getText().toString());
                     week.setColor(buttonColor.getColor());
-                    dbHelper.insertWeek(week);
+                    dbHelper.insertWeek(week);*/
                     adapter.notifyDataSetChanged();
                     subject.getText().clear();
                     teacher.getText().clear();
                     room.getText().clear();
+                    cb1.setChecked(false);
+                    cb2.setChecked(false);
+                    cb3.setChecked(false);
+                    cb4.setChecked(false);
                     from_time.setText(R.string.select_time);
                     to_time.setText(R.string.select_time);
                     select_color.setBackgroundColor(Color.WHITE);

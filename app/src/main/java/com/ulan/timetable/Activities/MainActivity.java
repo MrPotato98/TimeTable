@@ -148,13 +148,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         final NavigationView navigationView = findViewById(R.id.nav_view);
         switch (item.getItemId()) {
-            case R.id.schoolwebsitemenu:
-                String schoolWebsite = PreferenceManager.getDefaultSharedPreferences(this).getString(SettingsActivity.KEY_SCHOOL_WEBSITE_SETTING, null);
-                if(!TextUtils.isEmpty(schoolWebsite)) {
-                    openUrlInChromeCustomTab(getApplicationContext(), schoolWebsite);
-                } else {
-                    Snackbar.make(navigationView, R.string.school_website_snackbar, Snackbar.LENGTH_SHORT).show();
-                }
+            case R.id.weekTimeTable:
+                Intent week = new Intent(MainActivity.this, WeekActivity.class);
+                startActivity(week);
                 return true;
             case R.id.teachers:
                 Intent teacher = new Intent(MainActivity.this, TeachersActivity.class);

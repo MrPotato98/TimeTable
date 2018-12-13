@@ -29,6 +29,8 @@ public class FragmentsTabAdapter  extends FragmentStatePagerAdapter {
         mFragmentList.add(fragment);
         mFragmentTitleList.add(title);
     }
+
+
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {

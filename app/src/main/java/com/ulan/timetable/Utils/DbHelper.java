@@ -12,6 +12,7 @@ import com.ulan.timetable.Model.Teacher;
 import com.ulan.timetable.Model.Week;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Ulan on 07.09.2018.
@@ -129,6 +130,34 @@ public class DbHelper extends SQLiteOpenHelper{
         db.update(TIMETABLE, contentValues, WEEK_FRAGMENT, null);
         db.close();
     }
+
+    public void KiemTra(Week w){
+       // List<Week> WeekList = getAllWeek();
+        List<Week> WeekList2=getWeek(w.getFragment());
+        for(Week a:WeekList2)
+        {
+            String z=a.getFromTime().toString();
+            String x=w.getFromTime().toString();
+            if(z.equals(x))
+                deleteWeekById(a);
+
+        }
+    }
+
+    public List<Week> getAllWeek(){
+        List<Week> WeekList = new ArrayList<>();
+        String Query ="SELECT * FROM"+TIMETABLE;
+        SQLiteDatabase db2 = this.getReadableDatabase();
+        Cursor cs=db2.rawQuery(Query,null);
+        cs.moveToFirst();
+        while(cs.isAfterLast()==false){
+            Week week=new Week(cs.getString(0),cs.getString(1),cs.getString(2),cs.getString(3),cs.getString(4),cs.getInt(5));
+            WeekList.add(week);
+            cs.moveToNext();
+        }
+        return WeekList;
+    }
+
 
     public void deleteWeekById(Week week) {
         SQLiteDatabase db = this.getWritableDatabase();

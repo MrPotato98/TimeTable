@@ -36,8 +36,12 @@
             android:value=".Activities.HomeworksActivity" />
 
         <activity
-            android:name=".Activities.NotesActivity"
-            android:label="Notes"
+        android:name=".Activities.NotesActivity"
+        android:label="Notes"
+        android:parentActivityName=".Activities.MainActivity" />
+        <activity
+            android:name=".Activities.WeekActivity"
+            android:label="Week"
             android:parentActivityName=".Activities.MainActivity" />
         <activity
             android:name=".Activities.NoteInfoActivity"
