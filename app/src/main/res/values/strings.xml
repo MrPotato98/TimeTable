@@ -6,6 +6,9 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
+    <!-- Notification -->
+    <string name="Content_text">Remember to check out the weekly school calendar</string>
+
     <!-- Fragments strings -->
     <string name="monday">Monday</string>
     <string name="tuesday">Tuesday</string>
