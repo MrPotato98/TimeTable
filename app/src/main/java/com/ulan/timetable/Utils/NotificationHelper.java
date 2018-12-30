@@ -21,7 +21,6 @@ public class NotificationHelper extends BroadcastReceiver {
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onReceive(Context context, Intent intent) {
-
         //Get id & massage from intent.
         int notificationId = intent.getIntExtra("notificationId", 0);
         String message = intent.getStringExtra("todo");
